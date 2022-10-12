@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import useFetch from "../hooks/useFetch";
+import General from "../components/Hero/General";
 
 const Index: NextPage = () => {
   // Import a custom hook to fetch data
@@ -11,9 +12,9 @@ const Index: NextPage = () => {
   if (error) return <h1>Error</h1>;
 
   return (
-    <section>
-      <h1>StashAway FE</h1>
-    </section>
+    <>
+      <General />
+    </>
   );
 };
 

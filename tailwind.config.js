@@ -12,7 +12,6 @@ module.exports = {
       }
     },
     colors: {
-      "stashaway-black": "#000000",
       "stashaway-white": "#ffffff",
       "stashaway-blue": "#0e233e",
       "stashaway-cyan": "#62b4b1",

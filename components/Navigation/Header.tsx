@@ -1,13 +1,14 @@
 import type { NextPage } from "next";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/future/image";
-import Arrow from "../SVG/Arrow";
+import ArrowDropdown from "../SVG/ArrowDropdown";
 
 const Header: NextPage = () => {
   return (
-    <header>
-      <div className="z-50 w-full pt-8 pb-8 md:block">
-        <div className="mx-auto flex max-w-screen-xl items-center justify-between px-8">
+    <header className="bg-stashaway-blue">
+      <div className="z-50 w-full pt-8 pb-8 mx-auto max-w-screen-2xl md:block">
+        <div className="flex items-center place-content-between">
           <div className="cursor-pointer">
             <Link href="/">
               <a aria-label="Homepage">
@@ -22,31 +23,31 @@ const Header: NextPage = () => {
             </Link>
           </div>
           <nav>
-            <ul className="text-base space-x-10 flex">
-              <li className="py-2 font-semibold">
+            <ul className="flex space-x-10 text-base font-akkurat">
+              <li className="py-2 text-stashaway-cyan">
                 <Link href="/">
                   <a>Home</a>
                 </Link>
               </li>
-              <li className="py-2 font-semibold">
+              <li className="py-2 text-stashaway-white">
                 <Link href="/">
                   <a>Manage deposits</a>
                 </Link>
               </li>
-              <li className="py-2 font-semibold">
+              <li className="py-2 text-stashaway-white">
                 <Link href="/">
                   <a>Refer a friend</a>
                 </Link>
               </li>
-              <li className="py-2 font-semibold">
+              <li className="py-2 text-stashaway-white">
                 <Link href="/">
                   <a>Support</a>
                 </Link>
               </li>
-              <div className="py-2 font-semibold cursor-pointer flex space-x-1">
+              <div className="flex py-2 space-x-1 cursor-pointer text-stashaway-white">
                 <div className="">Oliver</div>
-                <div className="pt-1">
-                  <Arrow />
+                <div className="w-5 h-5 pt-1">
+                  <ArrowDropdown />
                 </div>
               </div>
             </ul>
