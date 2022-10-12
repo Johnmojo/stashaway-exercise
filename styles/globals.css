@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "akkurat";
+  src: url("../public/fonts/akkurat.ttf");
+}
+
+@font-face {
+  font-family: "metropolis";
+  src: url("../public/fonts/metropolis-regular.ttf");
+}
+
 html,
 body {
   padding: 0;
