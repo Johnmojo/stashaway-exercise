@@ -1,8 +1,20 @@
 import type { NextPage } from "next";
-import Image from "next/image";
+import useFetch from "../hooks/useFetch";
 
 const Index: NextPage = () => {
-  return <div></div>;
+  // Import a custom hook to fetch data
+  const { loading, error, data } = useFetch(
+    "https://jsonplaceholder.typicode.com/todos?&_limit=5"
+  );
+
+  if (loading) return <h1>Loading</h1>;
+  if (error) return <h1>Error</h1>;
+
+  return (
+    <section>
+      <h1>StashAway FE</h1>
+    </section>
+  );
 };
 
 export default Index;
