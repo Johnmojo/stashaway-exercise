@@ -21,6 +21,22 @@
 @font-face {
   font-family: "metropolis";
   font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../public/fonts/metropolis-medium.ttf");
+}
+
+@font-face {
+  font-family: "metropolis";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../public/fonts/metropolis-semibold.ttf");
+}
+
+@font-face {
+  font-family: "metropolis";
+  font-style: normal;
   font-weight: 700;
   font-display: swap;
   src: url("../public/fonts/metropolis-bold.ttf");
