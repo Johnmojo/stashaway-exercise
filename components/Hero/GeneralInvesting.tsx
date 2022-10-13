@@ -1,13 +1,9 @@
-import { useState } from "react";
 import Link from "next/link";
 import Overview from "../Section/Overview";
 import ArrowLeft from "../SVG/ArrowLeft";
 import ArrowDropdown from "../SVG/ArrowDropdown";
 
-const General = () => {
-  // Keep track which active tab is selected
-  const [active, setActive] = useState("overview");
-
+const GeneralInvesting = () => {
   return (
     <>
       <section className="bg-stashaway-blue">
@@ -65,7 +61,6 @@ const General = () => {
           </div>
         </div>
       </section>
-      {/* Each sections are seperated into these */}
       <section>
         <Overview />
       </section>
@@ -73,4 +68,4 @@ const General = () => {
   );
 };
 
-export default General;
+export default GeneralInvesting;

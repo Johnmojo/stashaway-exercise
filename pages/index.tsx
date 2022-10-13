@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import useFetch from "../hooks/useFetch";
-import General from "../components/Hero/General";
+import GeneralInvesting from "../components/Hero/GeneralInvesting";
 
 const Index: NextPage = () => {
   // Import a custom hook to fetch data
@@ -13,7 +13,7 @@ const Index: NextPage = () => {
 
   return (
     <>
-      <General />
+      <GeneralInvesting />
     </>
   );
 };
