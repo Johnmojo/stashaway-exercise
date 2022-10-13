@@ -3,7 +3,8 @@ import Overview from "../Section/Overview";
 import ArrowLeft from "../SVG/ArrowLeft";
 import ArrowDropdown from "../SVG/ArrowDropdown";
 
-const GeneralInvesting = () => {
+// General Investing Hero
+const General = () => {
   return (
     <>
       <section className="bg-stashaway-blue">
@@ -68,4 +69,4 @@ const GeneralInvesting = () => {
   );
 };
 
-export default GeneralInvesting;
+export default General;
