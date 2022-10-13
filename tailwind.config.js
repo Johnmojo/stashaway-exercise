@@ -14,7 +14,7 @@ module.exports = {
     colors: {
       "stashaway-white": "#ffffff",
       "stashaway-blue": "#0e233e",
-      "stashaway-cyan": "#62b4b1",
+      "stashaway-cyan": "#62B4B1",
       "stashaway-lightBlue": "#4b84d2",
       "stashaway-cyan": "#62b4b1",
       "stashaway-yellow": "#928154",
