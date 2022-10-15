@@ -1,8 +1,7 @@
 import type { NextPage } from "next";
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/future/image";
-import ArrowDropdown from "../SVG/ArrowDropdown";
+import { ArrowDropdown } from "@components/index";
 
 const Header: NextPage = () => {
   return (

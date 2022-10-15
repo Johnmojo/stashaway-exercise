@@ -1,7 +1,5 @@
 import Link from "next/link";
-import { Overview } from "@components/index";
-import { ArrowLeft } from "@components/index";
-import { ArrowDropdown } from "@components/index";
+import { Overview, ArrowLeft, ArrowDropdown } from "@components/index";
 
 // General Investing Hero
 const General = () => {

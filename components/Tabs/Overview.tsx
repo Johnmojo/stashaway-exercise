@@ -1,5 +1,4 @@
-import { Compare } from "@components/index";
-import { Result } from "@components/index";
+import { Compare, Result } from "@components/index";
 
 const Overview = () => {
   return (
