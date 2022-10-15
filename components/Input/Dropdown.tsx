@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import ArrowDropdown from "../SVG/ArrowDropdown";
 
 interface Props {
   options: Array<{ label: string; value: string }>;
@@ -36,8 +37,9 @@ const Dropdown = ({ options, id, selectValue }: Props) => {
 
   return (
     <div
-      className={`border-2 rounded-sm py-4 border-stashaway-mediumGrey relative ${
-        toggle && "before:-translate-x-1/3 before:-translate-y-1/2"
+      className={`border rounded-md border-stashaway-blackGrey select-none text-stashaway-darkGrey font-akkurat bg-stashaway-white relative cursor-pointer ${
+        toggle &&
+        "before:-translate-x-1/3 before:-translate-y-1/2 rounded-b-none"
       }`}
       id={id}
       name={id}
@@ -45,28 +47,35 @@ const Dropdown = ({ options, id, selectValue }: Props) => {
       value={option.toLowerCase()}
       onClick={() => setToggle(!toggle)}
     >
-      <span className="block overflow-hidden text-ellipsis whitespace-nowrap">
-        {option}
+      <span className="flex items-center px-6 py-4 overflow-hidden text-ellipsis whitespace-nowrap place-content-between">
+        <div>{option}</div>
+        <div
+          className={`w-5 h-5 fill-stashaway-cyan ${toggle && "rotate-180"}`}
+        >
+          <ArrowDropdown />
+        </div>
       </span>
       <ul
-        className={`opacity-0 absolute w-full mt-6 ${
-          toggle &&
-          "!opacity-100 pointer-events-auto origin-top scale-100 translate-y-0"
+        className={`border border-stashaway-blackGrey opacity-0 absolute w-full bg-stashaway-white pointer-events-none  ${
+          toggle && "!opacity-100 pointer-events-auto rounded-b-md"
         }`}
       >
-        {options.map((option, id) => (
-          <li
-            className={`p-4 cursor-auto text-left select-none ${
-              option.value === focus && "text-stashaway-blue bg-stashaway-cyan"
-            }`}
-            key={id}
-            data-value={option.value}
-            data-label={option.label}
-            onClick={handleClickInner}
-          >
-            {option.label}
-          </li>
-        ))}
+        <div className="m-4">
+          {options.map((option, id) => (
+            <li
+              className={`px-4 py-4 text-left select-none cursor-pointer text-stashaway-blue hover:bg-stashaway-mediumGrey ${
+                option.value === focus &&
+                " !bg-stashaway-lightGrey text-stashaway-darkGrey"
+              }`}
+              key={id}
+              data-value={option.value}
+              data-label={option.label}
+              onClick={handleClickInner}
+            >
+              {option.label}
+            </li>
+          ))}
+        </div>
       </ul>
     </div>
   );

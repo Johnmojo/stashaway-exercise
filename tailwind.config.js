@@ -20,7 +20,8 @@ module.exports = {
       "stashaway-yellow": "#928154",
       "stashaway-lightGrey": "#f8f8f8",
       "stashaway-mediumGrey": "#edeff1",
-      "stashaway-darkGrey": "#828282"
+      "stashaway-darkGrey": "#828282",
+      "stashaway-blackGrey": "#e2e3e5"
     }
   },
   plugins: []

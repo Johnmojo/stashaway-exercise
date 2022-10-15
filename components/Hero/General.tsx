@@ -53,7 +53,7 @@ const General = () => {
               <Link href="/">
                 <a className="flex items-center space-x-1 text-stashaway-white">
                   <div>More actions</div>
-                  <div className="w-4 h-4 pt-[0.75]">
+                  <div className="w-4 h-4 pt-[0.75] fill-stashaway-white">
                     <ArrowDropdown />
                   </div>
                 </a>

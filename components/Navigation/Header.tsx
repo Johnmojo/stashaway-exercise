@@ -46,7 +46,7 @@ const Header: NextPage = () => {
               </li>
               <div className="flex py-2 space-x-1 cursor-pointer text-stashaway-white">
                 <div className="">Oliver</div>
-                <div className="w-5 h-5 pt-1">
+                <div className="w-5 h-5 pt-1 fill-stashaway-white">
                   <ArrowDropdown />
                 </div>
               </div>
