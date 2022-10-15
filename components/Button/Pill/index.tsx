@@ -11,7 +11,7 @@ const Pill = ({ buttonTitle, buttonId, onClick, buttonStatus }: Props) => {
       id={buttonId}
       onClick={onClick}
       className={`inline-block px-3 py-1.5 mx-auto rounded-md font-akkurat text-stashaway-cyan ${
-        buttonStatus === buttonId && "bg-stashaway-cyan text-stashaway-white"
+        buttonStatus === buttonId && "bg-stashaway-cyan !text-stashaway-white"
       }`}
     >
       {buttonTitle}

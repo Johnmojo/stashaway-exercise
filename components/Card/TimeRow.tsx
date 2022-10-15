@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Pill from "../Button/Pill";
+import { Pill } from "@components/index";
 
 interface Props {
   timeInput: { id: string; label: string }[];

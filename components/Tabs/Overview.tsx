@@ -1,7 +1,6 @@
-import Compare from "../Card/Compare";
-import Graph from "../Card/Graph";
+import { Compare } from "@components/index";
+import { Result } from "@components/index";
 
-// Overview - Portfolio benchmark with graph
 const Overview = () => {
   return (
     <div className="w-full mx-auto py-14 max-w-screen-2xl md:block">
@@ -12,7 +11,7 @@ const Overview = () => {
       </div>
       <div>
         <Compare />
-        <Graph />
+        <Result />
       </div>
     </div>
   );

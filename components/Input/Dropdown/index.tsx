@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import ArrowDropdown from "../SVG/ArrowDropdown";
+import { ArrowDropdown } from "@components/index";
 
 interface Props {
   options: Array<{ label: string; value: string }>;

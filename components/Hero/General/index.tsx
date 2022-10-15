@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Overview from "../Section/Overview";
-import ArrowLeft from "../SVG/ArrowLeft";
-import ArrowDropdown from "../SVG/ArrowDropdown";
+import { Overview } from "@components/index";
+import { ArrowLeft } from "@components/index";
+import { ArrowDropdown } from "@components/index";
 
 // General Investing Hero
 const General = () => {

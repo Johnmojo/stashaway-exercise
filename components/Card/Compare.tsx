@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Dropdown from "../Input/Dropdown";
+import { Dropdown } from "@components/index";
 
 const Compare = () => {
   const [listing, setListing] = useState({

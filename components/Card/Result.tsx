@@ -1,7 +1,18 @@
-import TimeRow from "./TimeRow";
-import CurrencyRow from "./CurrencyRow";
+import useFetch from "@hooks/useFetch";
+import { TimeRow } from "@components/index";
+import { CurrencyRow } from "@components/index";
+import { Line } from "@components/index";
 
-const Graph = () => {
+const Result = () => {
+  // Import a custom hook to fetch data
+  const { loading, error, data } = useFetch(
+    "https://jsonplaceholder.typicode.com/todos?&_limit=5"
+  );
+
+  // Verify if its working
+  if (loading) return <h1>Loading</h1>;
+  if (error) return <h1>Error</h1>;
+
   // Array for time buttons
   const timeArray = [
     { id: "1m", label: "1 month" },
@@ -28,9 +39,11 @@ const Graph = () => {
           <CurrencyRow currencyInput={currencyArray} />
         </div>
       </div>
-      <div>GRAPH HERE</div>
+      <div>
+        <Line />
+      </div>
     </section>
   );
 };
 
-export default Graph;
+export default Result;
