@@ -1,4 +1,3 @@
-import { useState } from "react";
 import TimeRow from "./TimeRow";
 import CurrencyRow from "./CurrencyRow";
 
@@ -21,7 +20,7 @@ const Graph = () => {
 
   return (
     <section>
-      <div className="flex w-full mx-auto py-14 max-w-screen-2xl place-content-between">
+      <div className="flex w-full pb-8 mx-auto pt-14 max-w-screen-2xl place-content-between">
         <div className="space-x-3">
           <TimeRow timeInput={timeArray} />
         </div>

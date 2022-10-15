@@ -9,7 +9,7 @@ const Compare = () => {
   const { foreignBenchmark } = listing;
 
   // Feed the Dropdown
-  const foreignBenchmarkOption = [
+  const benchmarkArray = [
     { value: "one", label: "One" },
     { value: "two", label: "Two" },
     { value: "three", label: "Three" }
@@ -30,7 +30,7 @@ const Compare = () => {
       <div className="w-[40%] p-12 bg-stashaway-mediumGrey rounded-tr-md rounded-br-md">
         <Dropdown
           id="foreignBenchmark"
-          options={foreignBenchmarkOption}
+          options={benchmarkArray}
           selectValue={foreignBenchmark}
         />
       </div>
