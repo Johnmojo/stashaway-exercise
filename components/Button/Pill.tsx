@@ -15,7 +15,7 @@ const Pill = ({
     <button
       onClick={buttonOnClick}
       id={buttonId}
-      className={`inline-block px-3 py-1 mx-auto font-medium rounded-md font-akkurat text-stashaway-cyan ${
+      className={`inline-block px-3 py-1.5 mx-auto rounded-md font-akkurat text-stashaway-cyan ${
         buttonStatus === buttonId && "bg-stashaway-cyan !text-stashaway-white"
       }`}
     >

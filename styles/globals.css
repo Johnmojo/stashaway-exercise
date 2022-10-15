@@ -11,6 +11,14 @@
 }
 
 @font-face {
+  font-family: "akkurat";
+  font-style: bold;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../public/fonts/akkurat-bold.ttf");
+}
+
+@font-face {
   font-family: "metropolis";
   font-style: normal;
   font-weight: 400;
