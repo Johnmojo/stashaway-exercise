@@ -1,22 +1,19 @@
+import { useState } from "react";
+
 interface Props {
   buttonTitle: string;
-  buttonOnClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  buttonId: string;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   buttonStatus: string;
-  buttonId?: string;
 }
 
-const Pill = ({
-  buttonTitle,
-  buttonOnClick,
-  buttonStatus,
-  buttonId
-}: Props) => {
+const Pill = ({ buttonTitle, buttonId, onClick, buttonStatus }: Props) => {
   return (
     <button
-      onClick={buttonOnClick}
       id={buttonId}
+      onClick={onClick}
       className={`inline-block px-3 py-1.5 mx-auto rounded-md font-akkurat text-stashaway-cyan ${
-        buttonStatus === buttonId && "bg-stashaway-cyan !text-stashaway-white"
+        buttonStatus === buttonId && "bg-stashaway-cyan text-stashaway-white"
       }`}
     >
       {buttonTitle}
