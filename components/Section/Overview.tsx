@@ -1,4 +1,5 @@
 import Compare from "../Card/Compare";
+import Graph from "../Card/Graph";
 
 // Overview - Portfolio benchmark with graph
 const Overview = () => {
@@ -11,6 +12,7 @@ const Overview = () => {
       </div>
       <div>
         <Compare />
+        <Graph />
       </div>
     </div>
   );
