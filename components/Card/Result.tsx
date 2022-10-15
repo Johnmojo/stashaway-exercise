@@ -1,7 +1,5 @@
 import useFetch from "@hooks/useFetch";
-import { TimeRow } from "@components/index";
-import { CurrencyRow } from "@components/index";
-import { Line } from "@components/index";
+import { Graph, CurrencyRow, TimeRow } from "@components/index";
 
 const Result = () => {
   // Import a custom hook to fetch data
@@ -40,7 +38,7 @@ const Result = () => {
         </div>
       </div>
       <div>
-        <Line />
+        <Graph />
       </div>
     </section>
   );

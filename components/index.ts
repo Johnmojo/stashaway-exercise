@@ -9,6 +9,7 @@ export { default as Compare } from "./Card/Compare";
 export { default as TimeRow } from "./Card/TimeRow";
 export { default as CurrencyRow } from "./Card/CurrencyRow";
 export { default as Result } from "./Card/Result";
+export { default as Graph } from "./Card/Graph";
 
 // Input
 export { default as Dropdown } from "./Input/Dropdown";
