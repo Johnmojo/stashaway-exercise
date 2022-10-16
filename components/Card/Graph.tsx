@@ -27,6 +27,15 @@ const options: Highcharts.Options = {
   title: {
     text: undefined
   },
+  plotOptions: {
+    series: {
+      states: {
+        hover: {
+          enabled: false
+        }
+      }
+    }
+  },
   tooltip: {
     shared: true,
     backgroundColor: "#ffffff",
@@ -36,7 +45,7 @@ const options: Highcharts.Options = {
     valueSuffix: " SGD",
     useHTML: true,
     headerFormat:
-      '<div style="margin: 1.5rem 2rem; color: #0e233e; text-align: right;"><div style="margin-bottom:1rem; font-weight: bold; font-size: 0.875rem;">{point.key}</div>',
+      '<div style="margin: 1.25rem 2rem; color: #0e233e; text-align: right;"><div style="margin-bottom:1rem; font-weight: bold; font-size: 0.875rem;">{point.key}</div>',
     pointFormat:
       '<div style="color:#828282; margin-bottom:1rem; font-size: 0.875rem; font-weight: semibold;"><span style="display: inline-block; height: 10px; width: 10px; margin-right: 10px; background-color: {series.color}"></span>{point.series.name}<div style="font-weight:bold; font-size:1.125rem; color:#3884d8">{point.y}</div></div>',
     footerFormat: "</div>"
@@ -58,6 +67,9 @@ const options: Highcharts.Options = {
       style: {
         color: "#ffffff"
       }
+    },
+    crosshair: {
+      color: "#62b4b1"
     }
   },
   yAxis: {
@@ -70,7 +82,8 @@ const options: Highcharts.Options = {
         color: "#ffffff"
       }
     },
-    gridLineColor: "rgba(255,255,255,0.2)"
+    gridLineColor: "rgba(255,255,255,0.2)",
+    crosshair: false
   },
   series: [
     {
