@@ -1,11 +1,17 @@
 import useFetch from "@hooks/useFetch";
 import { Graph, CurrencyRow, TimeRow } from "@components/index";
+const API_KEY = process.env.API_KEY;
+
+// Temp data
+import { UserData } from "../../data/UserData";
 
 const Result = () => {
+  const rangeDayAPI = "TIME_SERIES_DAILY";
+  const rangeWeekAPI = "TIME_SERIES_WEEKLY";
+  const rangeMonthAPI = "TIME_SERIES_MONTHLY";
+
   // Import a custom hook to fetch data
-  const { loading, error, data } = useFetch(
-    "https://jsonplaceholder.typicode.com/todos?&_limit=5"
-  );
+  const { loading, error, data } = useFetch("http://localhost:4000/");
 
   // Verify if its working
   if (loading) return <h1>Loading</h1>;
@@ -29,7 +35,7 @@ const Result = () => {
 
   return (
     <section>
-      <div className="flex w-full pb-8 mx-auto pt-14 max-w-screen-2xl place-content-between">
+      <div className="flex w-full pb-4 mx-auto pt-14 max-w-screen-2xl place-content-between">
         <div className="space-x-3">
           <TimeRow timeInput={timeArray} />
         </div>

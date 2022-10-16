@@ -16,7 +16,7 @@ const Compare = () => {
   ];
 
   return (
-    <div className="relative flex">
+    <div className="relative z-10 flex">
       <div className="w-[60%] p-12 bg-stashaway-lightGrey rounded-tl-md rounded-bl-md">
         <div className="flex flex-col space-y-2">
           <p className="font-semibold font-metropolis text-stashaway-blue">
