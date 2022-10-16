@@ -13,9 +13,20 @@ interface Props {
   }[];
 }
 
+// Disable K's on numeric label
+// Highcharts.setOptions({
+//   lang: {
+//     numericSymbols: undefined
+//   }
+// });
+
+// Option config for the Line chart
 const options: Highcharts.Options = {
   title: {
     text: undefined
+  },
+  tooltip: {
+    shared: true
   },
   colors: ["#4b84d2", "#928154"],
   chart: {
@@ -24,14 +35,26 @@ const options: Highcharts.Options = {
     borderRadius: 20,
     spacingTop: 200,
     spacingBottom: 200,
-    spacingLeft: 0,
-    spacingRight: 0,
+    spacingLeft: 65,
+    spacingRight: 60,
     height: "50%"
   },
-  xAxis: {},
+  xAxis: {
+    labels: {
+      style: {
+        color: "#ffffff"
+      }
+    }
+  },
   yAxis: {
     title: {
       text: null
+    },
+    labels: {
+      format: "{value:,3f}",
+      style: {
+        color: "#ffffff"
+      }
     },
     gridLineColor: "rgba(255,255,255,0.2)"
   },
