@@ -13,12 +13,14 @@ interface Props {
   }[];
 }
 
-// Disable K's on numeric label
-// Highcharts.setOptions({
-//   lang: {
-//     numericSymbols: undefined
-//   }
-// });
+// Additional global settings for Nextjs
+if (typeof Highcharts === "object") {
+  Highcharts.setOptions({
+    lang: {
+      thousandsSep: ","
+    }
+  });
+}
 
 // Option config for the Line chart
 const options: Highcharts.Options = {
@@ -30,14 +32,13 @@ const options: Highcharts.Options = {
     backgroundColor: "#ffffff",
     borderColor: "#ffffff",
     borderRadius: 20,
-    padding: 20,
     valuePrefix: "$",
     valueSuffix: " SGD",
     useHTML: true,
     headerFormat:
-      '<div style="color: #0e233e; text-align: right;"><div style="font-weight: bold; font-size: 0.875rem; padding-bottom:1rem;">{point.key}</div>',
+      '<div style="margin: 1.5rem 2rem; color: #0e233e; text-align: right;"><div style="margin-bottom:1rem; font-weight: bold; font-size: 0.875rem;">{point.key}</div>',
     pointFormat:
-      '<div style="color:#828282; font-size: 0.875rem; font-weight: medium;"><span style="display: inline-block; height: 10px; width: 10px; margin-right: 10px; background-color: #000000;"></span>{point.series.name}<div style="padding-bottom:1rem; font-weight:bold; font-size:1.125rem; color:#3884d8">{point.x:,.0f}{point.y:,.f}</div></div>',
+      '<div style="color:#828282; margin-bottom:1rem; font-size: 0.875rem; font-weight: semibold;"><span style="display: inline-block; height: 10px; width: 10px; margin-right: 10px; background-color: {series.color}"></span>{point.series.name}<div style="font-weight:bold; font-size:1.125rem; color:#3884d8">{point.y}</div></div>',
     footerFormat: "</div>"
   },
   colors: ["#3884d8", "#efbe55"],
@@ -53,6 +54,7 @@ const options: Highcharts.Options = {
   },
   xAxis: {
     labels: {
+      // format: "{value:%b %e}",
       style: {
         color: "#ffffff"
       }
@@ -63,7 +65,7 @@ const options: Highcharts.Options = {
       text: null
     },
     labels: {
-      format: "{value:,3f}",
+      // format: "{value:,3f}",
       style: {
         color: "#ffffff"
       }
@@ -75,7 +77,7 @@ const options: Highcharts.Options = {
       name: "StashAway Risk Index 14%",
       type: "line",
       data: [
-        43934, 48656, 65165, 81827, 112143, 142383, 171533, 165174, 155157,
+        439340, 480656, 650165, 101827, 102143, 142383, 171533, 165174, 155157,
         161454, 154610
       ]
     },
@@ -83,8 +85,8 @@ const options: Highcharts.Options = {
       name: "40% VTSMX (Stock) + 60 % VBMFX (Bond)",
       type: "line",
       data: [
-        11744, 30000, 16005, 19771, 20185, 24377, 32147, 30912, 29243, 29213,
-        25663
+        117440, 300000, 160050, 197710, 201850, 243770, 321470, 309120, 292430,
+        292130, 256630
       ]
     }
   ],

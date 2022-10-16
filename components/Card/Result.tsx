@@ -11,11 +11,11 @@ const Result = () => {
   const rangeMonthAPI = "TIME_SERIES_MONTHLY";
 
   // Import a custom hook to fetch data
-  const { loading, error, data } = useFetch("http://localhost:4000/");
+  // const { loading, error, data } = useFetch("http://localhost:4000/");
 
   // Verify if its working
-  if (loading) return <h1>Loading</h1>;
-  if (error) return <h1>Error</h1>;
+  // if (loading) return <h1>Loading</h1>;
+  // if (error) return <h1>Error</h1>;
 
   // Array for time buttons
   const timeArray = [
