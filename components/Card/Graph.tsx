@@ -26,9 +26,21 @@ const options: Highcharts.Options = {
     text: undefined
   },
   tooltip: {
-    shared: true
+    shared: true,
+    backgroundColor: "#ffffff",
+    borderColor: "#ffffff",
+    borderRadius: 20,
+    padding: 20,
+    valuePrefix: "$",
+    valueSuffix: " SGD",
+    useHTML: true,
+    headerFormat:
+      '<div style="color: #0e233e; text-align: right;"><div style="font-weight: bold; font-size: 0.875rem; padding-bottom:1rem;">{point.key}</div>',
+    pointFormat:
+      '<div style="color:#828282; font-size: 0.875rem; font-weight: medium;"><span style="display: inline-block; height: 10px; width: 10px; margin-right: 10px; background-color: #000000;"></span>{point.series.name}<div style="padding-bottom:1rem; font-weight:bold; font-size:1.125rem; color:#3884d8">{point.x:,.0f}{point.y:,.f}</div></div>',
+    footerFormat: "</div>"
   },
-  colors: ["#4b84d2", "#928154"],
+  colors: ["#3884d8", "#efbe55"],
   chart: {
     type: "line",
     backgroundColor: "#0e233e",
