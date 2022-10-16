@@ -4,111 +4,153 @@ import { useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
+// Mock data
+import dataVTI from "../../data/vti.json";
+import dataVTSMX from "../../data/vtsmx.json";
+import { data1 } from "../../data/data1";
+import { data2 } from "../../data/data2";
+
 interface Props {
-  UserData: {
-    id: number;
-    year: number;
-    userGain: number;
-    userLost: number;
-  }[];
+  props?: HighchartsReact.Props;
 }
 
-// Additional global settings for Nextjs
-if (typeof Highcharts === "object") {
-  Highcharts.setOptions({
-    lang: {
-      thousandsSep: ","
-    }
-  });
-}
+const Graph = ({ props }: Props) => {
+  // Additional global settings for Nextjs
+  if (typeof Highcharts === "object") {
+    Highcharts.setOptions({
+      lang: {
+        thousandsSep: ","
+      }
+    });
+  }
 
-// Option config for the Line chart
-const options: Highcharts.Options = {
-  title: {
-    text: undefined
-  },
-  plotOptions: {
-    series: {
-      states: {
-        hover: {
+  // Option config for the Line chart
+  const options: Highcharts.Options = {
+    title: {
+      text: undefined
+    },
+    legend: {
+      itemStyle: {
+        color: "#ffffff"
+      }
+    },
+    plotOptions: {
+      series: {
+        states: {
+          hover: {
+            enabled: false
+          }
+        },
+        marker: {
           enabled: false
         }
       }
-    }
-  },
-  tooltip: {
-    shared: true,
-    backgroundColor: "#ffffff",
-    borderColor: "#ffffff",
-    borderRadius: 20,
-    valuePrefix: "$",
-    valueSuffix: " SGD",
-    useHTML: true,
-    headerFormat:
-      '<div style="margin: 1.25rem 2rem; color: #0e233e; text-align: right;"><div style="margin-bottom:1rem; font-weight: bold; font-size: 0.875rem;">{point.key}</div>',
-    pointFormat:
-      '<div style="color:#828282; margin-bottom:1rem; font-size: 0.875rem; font-weight: semibold;"><span style="display: inline-block; height: 10px; width: 10px; margin-right: 10px; background-color: {series.color}"></span>{point.series.name}<div style="font-weight:bold; font-size:1.125rem; color:#3884d8">{point.y}</div></div>',
-    footerFormat: "</div>"
-  },
-  colors: ["#3884d8", "#efbe55"],
-  chart: {
-    type: "line",
-    backgroundColor: "#0e233e",
-    borderRadius: 20,
-    spacingTop: 200,
-    spacingBottom: 200,
-    spacingLeft: 65,
-    spacingRight: 60,
-    height: "50%"
-  },
-  xAxis: {
-    labels: {
-      // format: "{value:%b %e}",
-      style: {
-        color: "#ffffff"
+    },
+    tooltip: {
+      shared: true,
+      backgroundColor: "#ffffff",
+      borderColor: "#ffffff",
+      borderRadius: 20,
+      valuePrefix: "$",
+      valueSuffix: " SGD",
+      useHTML: true,
+      headerFormat:
+        '<div style="margin: 1.25rem 2rem; color: #0e233e; text-align: right;"><div style="margin-bottom:1rem; font-weight: bold; font-size: 0.875rem;">{point.key}</div>',
+      pointFormat:
+        '<div style="color:#828282; margin-bottom:1rem; font-size: 0.875rem; font-weight: semibold;"><span style="display: inline-block; height: 10px; width: 10px; margin-right: 10px; background-color: {series.color}"></span>{point.series.name}<div style="font-weight:bold; font-size:1.125rem; color:#3884d8">{point.y}</div></div>',
+      footerFormat: "</div>"
+    },
+    colors: ["#3884d8", "#efbe55"],
+    chart: {
+      type: "line",
+      backgroundColor: "#0e233e",
+      borderRadius: 20,
+      spacingTop: 200,
+      spacingBottom: 200,
+      spacingLeft: 65,
+      spacingRight: 60,
+      height: "50%"
+    },
+    xAxis: {
+      labels: {
+        // format: "{value:%b %e}",
+        style: {
+          color: "#ffffff"
+        }
+      },
+      crosshair: {
+        color: "#62b4b1"
       }
     },
-    crosshair: {
-      color: "#62b4b1"
-    }
-  },
-  yAxis: {
-    title: {
-      text: null
+    yAxis: {
+      showFirstLabel: false,
+      title: {
+        text: null
+      },
+      labels: {
+        format: "{value:,3f}",
+        style: {
+          color: "#ffffff"
+        }
+      },
+      gridLineColor: "rgba(255,255,255,0.2)",
+      crosshair: false
     },
-    labels: {
-      // format: "{value:,3f}",
-      style: {
-        color: "#ffffff"
+    series: [
+      {
+        name: "StashAway Risk Index 14%",
+        type: "line",
+        data: data1
+      },
+      {
+        name: "40% VTSMX (Stock) + 60 % VBMFX (Bond)",
+        type: "line",
+        data: data2
       }
+    ],
+    credits: {
+      enabled: false
     },
-    gridLineColor: "rgba(255,255,255,0.2)",
-    crosshair: false
-  },
-  series: [
-    {
-      name: "StashAway Risk Index 14%",
-      type: "line",
-      data: [
-        439340, 480656, 650165, 101827, 102143, 142383, 171533, 165174, 155157,
-        161454, 154610
-      ]
+    rangeSelector: {
+      allButtonsEnabled: true,
+      buttons: [
+        {
+          type: "month",
+          count: 3,
+          text: "Day",
+          dataGrouping: {
+            forced: true,
+            units: [["day", [1]]]
+          }
+        },
+        {
+          type: "year",
+          count: 1,
+          text: "Week",
+          dataGrouping: {
+            forced: true,
+            units: [["week", [1]]]
+          }
+        },
+        {
+          type: "all",
+          text: "Month",
+          dataGrouping: {
+            forced: true,
+            units: [["month", [1]]]
+          }
+        }
+      ],
+      buttonTheme: {
+        width: 60
+      },
+      selected: 2
     },
-    {
-      name: "40% VTSMX (Stock) + 60 % VBMFX (Bond)",
-      type: "line",
-      data: [
-        117440, 300000, 160050, 197710, 201850, 243770, 321470, 309120, 292430,
-        292130, 256630
-      ]
+    navigator: {
+      enabled: false
     }
-  ],
-  credits: {
-    enabled: false
-  }
-};
+  };
 
-const Graph = (props: HighchartsReact.Props) => {
   return (
     <section className="relative z-0 w-full rounded-2xl bg-stashaway-blue">
       <HighchartsReact highcharts={Highcharts} options={options} {...props} />

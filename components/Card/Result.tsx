@@ -11,9 +11,12 @@ const Result = () => {
   const rangeMonthAPI = "TIME_SERIES_MONTHLY";
 
   // Import a custom hook to fetch data
-  // const { loading, error, data } = useFetch("http://localhost:4000/");
+  // const { loading, error, data } = useFetch(
+  //   "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=VTI&datatype=json&apikey=" +
+  //     API_KEY
+  // );
 
-  // Verify if its working
+  // // Verify if its working
   // if (loading) return <h1>Loading</h1>;
   // if (error) return <h1>Error</h1>;
 
