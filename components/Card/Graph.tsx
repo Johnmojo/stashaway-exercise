@@ -34,30 +34,43 @@ interface Props {
   }[];
 }
 
-const data = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
-  database: [
-    {
-      data: [65, 59, 80, 81, 56, 55, 40]
-    }
-  ]
-};
-
 const data2 = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
-  pointColor: "#ffffff",
+  labels: [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ],
   datasets: [
     {
       id: 1,
-      label: "",
-      data: [5, 6, 7, 8, 9, 10, 11],
-      borderColor: "#928154"
+      pointColor: "#0e233e",
+      backgroundColor: "#0e233e",
+      borderColor: "#928154",
+      label: "40% VTSMX (Stock) + 60% VBMFX (Bond)",
+      data: [
+        10000, 20000, 30000, 40000, 50000, 6000, 70000, 80000, 90000, 100000,
+        110000, 120000
+      ]
     },
     {
       id: 2,
-      label: "",
-      data: [3, 2, 1, 0, 1, 2, 3],
-      borderColor: "#4b84d2"
+      pointColor: "#928154",
+      backgroundColor: "#928154",
+      borderColor: "#4b84d2",
+      label: "StashAway Risk Index 14%",
+      data: [
+        20000, 40000, 20000, 45000, 60000, 70000, 50000, 88000, 100000, 120000,
+        110000, 130000
+      ]
     }
   ]
 };
@@ -76,10 +89,35 @@ const options = {
       bottom: 150
     }
   },
-  tooltips: { backgroundColor: "#fdd100" },
   plugins: {
     legend: {
       display: false
+    },
+    tooltip: {
+      enabled: true,
+      backgroundColor: "#ffffff",
+      displayColors: true,
+      cornerRadius: 6,
+      bodyFontColor: "#0e233e",
+      footerFontColor: "#0e233e",
+      titleAlign: "right",
+      titleColor: "#0e233e",
+      bodyColor: "#0e233e",
+      bodyAlign: "right",
+      footerAlign: "right",
+      padding: 20,
+      caretSize: 0,
+      titleFontStyle: "bold",
+      callbacks: {
+        label: function (context) {
+          let label1 = context.dataset.label || "";
+          let label2 = context.parsed.y || "";
+          return [label1, label2];
+        }
+        // labelTextColor: function (context) {
+        //   return "#543453";
+        // }
+      }
     }
   },
   elements: {
@@ -120,7 +158,7 @@ const options = {
 
 const Graph = () => {
   return (
-    <section className="relative z-0 w-full rounded-md h-2/5 bg-stashaway-blue">
+    <section className="relative z-0 w-full rounded-2xl h-2/5 bg-stashaway-blue">
       <Line datasetIdKey="id" data={data2} options={options} />
       <div className="absolute space-y-3 top-16 left-16">
         <h1 className="text-2xl font-bold font-metropolis text-stashaway-white">
@@ -132,16 +170,22 @@ const Graph = () => {
         </p>
       </div>
       <div className="absolute left-0 right-0 flex items-start justify-center space-x-48 bottom-10">
-        <div className="text-sm font-metropolis text-stashaway-white">
-          StashAway Risk Index 14%
-        </div>
-        <div className="space-y-1 text-sm font-metropolis text-stashaway-white">
-          <div>40% VTSMX (Stock) + 60% VBMFX (Bond)</div>
-          <div className="opacity-50">
-            VTSMX - Vanguard Total Stock Market Index
+        <div className="flex items-start">
+          <div className="w-5 mt-2 mr-2 h-[0.20rem] bg-stashaway-lightBlue"></div>
+          <div className="text-sm font-metropolis text-stashaway-white">
+            StashAway Risk Index 14%
           </div>
-          <div className="opacity-50">
-            VTBMX - Vanguard Total Bond Market Index
+        </div>
+        <div className="flex items-start text-sm font-metropolis text-stashaway-white">
+          <div className="w-5 mt-2 mr-2 h-[0.20rem] bg-stashaway-yellow"></div>
+          <div className="space-y-1">
+            <div>40% VTSMX (Stock) + 60% VBMFX (Bond)</div>
+            <div className="opacity-50">
+              VTSMX - Vanguard Total Stock Market Index
+            </div>
+            <div className="opacity-50">
+              VTBMX - Vanguard Total Bond Market Index
+            </div>
           </div>
         </div>
       </div>
