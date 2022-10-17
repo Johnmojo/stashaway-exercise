@@ -1,24 +1,12 @@
 import useFetch from "@hooks/useFetch";
-import { Compare, Graph, CurrencyRow, TimeRow } from "@components/index";
 const API_KEY = process.env.API_KEY;
-
-// Temp data
-import { UserData } from "../../data/UserData";
+import { Compare, Graph, CurrencyRow, TimeRow } from "@components/index";
+import { useState } from "react";
 
 const Result = () => {
   const rangeDayAPI = "TIME_SERIES_DAILY";
   const rangeWeekAPI = "TIME_SERIES_WEEKLY";
   const rangeMonthAPI = "TIME_SERIES_MONTHLY";
-
-  // Import a custom hook to fetch data
-  // const { loading, error, data } = useFetch(
-  //   "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=VTI&datatype=json&apikey=" +
-  //     API_KEY
-  // );
-
-  // // Verify if its working
-  // if (loading) return <h1>Loading</h1>;
-  // if (error) return <h1>Error</h1>;
 
   // Array for time buttons
   const timeArray = [
@@ -38,26 +26,52 @@ const Result = () => {
 
   // Array for benchmark buttons
   const benchmarkArray = [
-    { value: "one", label: "One" },
-    { value: "two", label: "Two" },
-    { value: "three", label: "Three" }
+    { value: "brka", label: "40% VTSMX (Stock) + 60% VBMFX (Bond)" },
+    { value: "ldsvf", label: "VTSMX - Vanguard Total Stock Market Index" },
+    { value: "ibm", label: "VTBMX - Vanguard Total Bond Market Index" }
   ];
+
+  // Parent state to keep track of all the child states
+  const [benchmarkState, setBenchmarkState] = useState<string | undefined>(
+    "mix"
+  );
+  const [timeState, setTimeState] = useState<string | undefined>("1m");
+  const [currencyState, setCurrencyState] = useState<string | undefined>("sgd");
+
+  const [lolState, setLolState] = useState<string | undefined>("mix");
+
+  // List of endpoints
+  // const endpoint = `https://www.alphavantage.co/query?function=${rangeDayAPI}&symbol=${UserData.symbol}&apikey=${API_KEY}`;
+  const currentEndpoint: string = `http://localhost:4000/brka`;
+
+  // Import a custom hook to fetch data
+  const { loading, error, data } = useFetch(currentEndpoint);
+
+  // Verify if its working
+  if (loading) return <h1>Loading</h1>;
+  if (error) return <h1>Error</h1>;
 
   return (
     <section>
       <div>
-        <Compare compareInput={benchmarkArray} />
+        <Compare
+          compareInput={benchmarkArray}
+          passChildState={setBenchmarkState}
+        />
       </div>
       <div className="flex w-full pb-4 mx-auto pt-14 max-w-screen-2xl place-content-between">
         <div className="space-x-3">
-          <TimeRow timeInput={timeArray} />
+          <TimeRow timeInput={timeArray} passChildState={setTimeState} />
         </div>
         <div className="space-x-3">
-          <CurrencyRow currencyInput={currencyArray} />
+          <CurrencyRow
+            currencyInput={currencyArray}
+            passChildState={setCurrencyState}
+          />
         </div>
       </div>
       <div>
-        <Graph />
+        <Graph passChildData={data} />
       </div>
     </section>
   );

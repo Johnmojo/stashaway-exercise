@@ -3,20 +3,22 @@ import { Pill } from "@components/index";
 
 interface Props {
   timeInput: { id: string; label: string }[];
+  passChildState: (data: string) => void;
 }
 
-const Buttons = ({ timeInput }: Props) => {
+const Buttons = (props: Props) => {
   // Initialize and set first entry in the array as default
-  const [active, setActive] = useState<string>(timeInput[0].id);
+  const [active, setActive] = useState<string>(props.timeInput[0].id);
 
-  // Mutate state based on props returns (selected button)
+  // Keep track which button is selected & pass back to parent component
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    props.passChildState(event.currentTarget.id);
     setActive(event.currentTarget.id);
   };
 
   return (
     <>
-      {timeInput.map((time) => (
+      {props.timeInput.map((time) => (
         <Pill
           key={time.id}
           buttonTitle={time.label}

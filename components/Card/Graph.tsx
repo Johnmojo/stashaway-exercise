@@ -7,35 +7,36 @@ import HighchartsReact from "highcharts-react-official";
 // Mock data
 import IBM from "../../data/ibm.json";
 import VTSMX from "../../data/vtsmx.json";
-import { data1 } from "../../data/data1";
-import { data2 } from "../../data/data2";
 
 interface ExtendedChart extends Highcharts.Chart {
   currentZoom: string | undefined;
 }
 interface Props {
   props?: HighchartsReact.Props;
+  passChildData: Object | null;
 }
 
-const Graph = ({ props }: Props) => {
+const Graph = (props: Props) => {
   let processedDataA: { x: number; y: number }[] = [];
   let processedDataB: { x: number; y: number }[] = [];
 
   // TODO: Make this component & cleanup
   const dailySwitch: string = "Time Series (Daily)";
 
+  // console.log(props.passChildData);
+
   // Loop the object data and push it to the array
-  for (const key in IBM[dailySwitch]) {
+  for (const key in props.passChildData[dailySwitch]) {
     processedDataA.push({
       x: new Date(key).getTime(),
-      y: parseFloat(IBM[dailySwitch][key]["4. close"])
+      y: parseFloat(props.passChildData[dailySwitch][key]["4. close"])
     });
   }
 
-  for (const key in VTSMX[dailySwitch]) {
+  for (const key in props.passChildData[dailySwitch]) {
     processedDataB.push({
       x: new Date(key).getTime(),
-      y: parseFloat(VTSMX[dailySwitch][key]["4. close"])
+      y: parseFloat(props.passChildData[dailySwitch][key]["4. close"])
     });
   }
 
@@ -60,7 +61,7 @@ const Graph = ({ props }: Props) => {
       enabled: false
     },
     rangeSelector: {
-      enabled: true,
+      enabled: false,
       selected: 1,
       inputEnabled: false,
       buttonTheme: {
@@ -149,7 +150,50 @@ const Graph = ({ props }: Props) => {
       spacingBottom: 200,
       spacingLeft: 65,
       spacingRight: 60,
-      height: "50%"
+      height: "50%",
+      events: {
+        load() {
+          const chart = this,
+            xAxis = chart.xAxis[0];
+
+          m1.addEventListener("click", function () {
+            const oneMonth = 2629800000,
+              points = chart.series[0].points;
+            console.log(points);
+            xAxis.setExtremes(
+              points[points.length - 1].x - oneMonth,
+              points[points.length - 1].x
+            );
+          });
+
+          m3.addEventListener("click", function () {
+            const threeMonths = 3 * 2629800000,
+              points = chart.series[0].points;
+            xAxis.setExtremes(
+              points[points.length - 1].x - threeMonths,
+              points[points.length - 1].x
+            );
+          });
+
+          m6.addEventListener("click", function () {
+            const sixMonths = 6 * 2629800000,
+              points = chart.series[0].points;
+            xAxis.setExtremes(
+              points[points.length - 1].x - sixMonths,
+              points[points.length - 1].x
+            );
+          });
+
+          all.addEventListener("click", function () {
+            const oneYear: number = 12 * 2629800000,
+              points = chart.series[0].points;
+            xAxis.setExtremes(
+              points[points.length - 1].x - oneYear,
+              points[points.length - 1].x
+            );
+          });
+        }
+      }
     },
     xAxis: {
       minRange: 1,
@@ -197,52 +241,15 @@ const Graph = ({ props }: Props) => {
     }
   };
 
-  const chartRef = useRef<HighchartsReact.RefObject>(null);
-
-  let oldExtremes = [];
-
-  const zoom1M = () => {
-    if (chartRef.current && chartRef.current.chart) {
-      if (!(chartRef.current.chart as ExtendedChart).currentZoom) {
-        chartRef.current.chart.update({
-          xAxis: {
-            tickInterval: 28 * 24 * 3600 * 1000
-          }
-        });
-        chartRef.current.chart.xAxis[0].setExtremes(
-          1616440134271,
-          new Date(1616441116454).getTime()
-        );
-        (chartRef.current.chart as ExtendedChart).currentZoom = "1m";
-      }
-    }
-  };
-
-  const zoomAll = () => {
-    if (chartRef.current) {
-      chartRef.current.chart.update({
-        xAxis: {
-          minTickInterval: undefined
-        }
-      });
-
-      chartRef.current.chart.xAxis[0].setExtremes(undefined);
-      (chartRef.current.chart as ExtendedChart).currentZoom = "all";
-    }
-  };
-
   return (
-    <section className="relative z-0 w-full rounded-2xl bg-stashaway-blue">
+    <section className="relative z-0 w-full h-auto rounded-2xl bg-stashaway-blue">
       <div className="space-x-2">
-        <button className=" bg-stashaway-white" onClick={zoom1M}>
-          1M
-        </button>
-        <button className="bg-stashaway-white" onClick={zoomAll}>
-          ALL
-        </button>
+        <button id="m1">1m</button>
+        <button id="m3">3m</button>
+        <button id="m6">6m</button>
+        <button id="all">All</button>
       </div>
       <HighchartsReact
-        ref={chartRef}
         highcharts={Highcharts}
         constructorType={"stockChart"}
         options={options}

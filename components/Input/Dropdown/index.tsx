@@ -4,30 +4,32 @@ import { ArrowDropdown } from "@components/index";
 interface Props {
   options: Array<{ label: string; value: string }>;
   id: string;
-  selectValue: string;
+  passChildState: (data: string) => void;
 }
 
-const Dropdown = ({ options, id, selectValue }: Props) => {
+const Dropdown = (props: Props) => {
   const [toggle, setToggle] = useState(false);
-  const [option, setOption] = useState(options[0].label);
-  const [focus, setFocus] = useState(options[0].value);
-  const ref = useRef();
+  const [option, setOption] = useState(props.options[0].label);
+  const [focus, setFocus] = useState(props.options[0].value);
+  const dropdownRef = useRef<HTMLInputElement>(null);
 
-  const handleClickOutside = (e) => {
-    if (!ref.current.contains(e.target)) {
+  const handleClickOutside = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!dropdownRef.current.contains(e.target)) {
       setToggle(false);
     }
   };
 
-  const handleClickInner = (e) => {
+  const handleClickInner = (e: React.ChangeEvent<HTMLInputElement>) => {
     const label = e.target.getAttribute("data-label");
     const value = e.target.getAttribute("data-value");
-    setOption(label);
-    setFocus(value);
-    // selectValue({
-    //   name: id,
-    //   value
-    // });
+    setOption(label as string);
+    setFocus(value as string);
+
+    // Prevent page jump
+    e.preventDefault();
+
+    // Pass back the value to parent component
+    props.passChildState(value);
   };
 
   useEffect(() => {
@@ -41,9 +43,9 @@ const Dropdown = ({ options, id, selectValue }: Props) => {
         toggle &&
         "before:-translate-x-1/3 before:-translate-y-1/2 rounded-b-none"
       }`}
-      id={id}
-      name={id}
-      ref={ref}
+      id={props.id}
+      name={props.id}
+      ref={dropdownRef}
       value={option.toLowerCase()}
       onClick={() => setToggle(!toggle)}
     >
@@ -61,7 +63,7 @@ const Dropdown = ({ options, id, selectValue }: Props) => {
         }`}
       >
         <div className="m-4">
-          {options.map((option, id) => (
+          {props.options.map((option, id) => (
             <li
               className={`px-4 py-4 text-left select-none cursor-pointer text-stashaway-blue hover:bg-stashaway-mediumGrey ${
                 option.value === focus &&
