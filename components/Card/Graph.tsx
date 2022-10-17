@@ -5,8 +5,8 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
 // Mock data
-import dataVTI from "../../data/vti.json";
-import dataVTSMX from "../../data/vtsmx.json";
+import IBM from "../../data/ibm.json";
+import VTSMX from "../../data/vtsmx.json";
 import { data1 } from "../../data/data1";
 import { data2 } from "../../data/data2";
 
@@ -14,7 +14,32 @@ interface Props {
   props?: HighchartsReact.Props;
 }
 
+type lol = {
+  [key: string]: number;
+};
+
 const Graph = ({ props }: Props) => {
+  let processedDataA: { x: number; y: number }[] = [];
+  let processedDataB: { x: number; y: number }[] = [];
+
+  // TODO: Make this component & cleanup
+  const dailySwitch: string = "Time Series (Daily)";
+
+  // Loop the object data and push it to the array
+  for (const key in IBM[dailySwitch]) {
+    processedDataA.push({
+      x: new Date(key).getTime(),
+      y: parseFloat(IBM[dailySwitch][key]["4. close"])
+    });
+  }
+
+  for (const key in VTSMX[dailySwitch]) {
+    processedDataB.push({
+      x: new Date(key).getTime(),
+      y: parseFloat(VTSMX[dailySwitch][key]["4. close"])
+    });
+  }
+
   // Additional global settings for Nextjs
   if (typeof Highcharts === "object") {
     Highcharts.setOptions({
@@ -36,6 +61,7 @@ const Graph = ({ props }: Props) => {
     },
     plotOptions: {
       series: {
+        turboThreshold: 0,
         states: {
           hover: {
             enabled: false
@@ -51,6 +77,7 @@ const Graph = ({ props }: Props) => {
       backgroundColor: "#ffffff",
       borderColor: "#ffffff",
       borderRadius: 20,
+      xDateFormat: "%d %b %Y",
       valuePrefix: "$",
       valueSuffix: " SGD",
       useHTML: true,
@@ -72,8 +99,10 @@ const Graph = ({ props }: Props) => {
       height: "50%"
     },
     xAxis: {
+      type: "datetime",
       labels: {
-        // format: "{value:%b %e}",
+        format: "{value:%b %y}",
+        // format: "{value:%Y-%b-%e}",
         style: {
           color: "#ffffff"
         }
@@ -100,12 +129,12 @@ const Graph = ({ props }: Props) => {
       {
         name: "StashAway Risk Index 14%",
         type: "line",
-        data: data1
+        data: processedDataA.reverse()
       },
       {
         name: "40% VTSMX (Stock) + 60 % VBMFX (Bond)",
         type: "line",
-        data: data2
+        data: processedDataB.reverse()
       }
     ],
     credits: {
