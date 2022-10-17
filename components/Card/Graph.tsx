@@ -1,7 +1,7 @@
 import { LineChart } from "@components/index";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
-import Highcharts from "highcharts";
+import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 
 // Mock data
@@ -10,13 +10,12 @@ import VTSMX from "../../data/vtsmx.json";
 import { data1 } from "../../data/data1";
 import { data2 } from "../../data/data2";
 
+interface ExtendedChart extends Highcharts.Chart {
+  currentZoom: string | undefined;
+}
 interface Props {
   props?: HighchartsReact.Props;
 }
-
-type lol = {
-  [key: string]: number;
-};
 
 const Graph = ({ props }: Props) => {
   let processedDataA: { x: number; y: number }[] = [];
@@ -54,6 +53,59 @@ const Graph = ({ props }: Props) => {
     title: {
       text: undefined
     },
+    navigator: {
+      enabled: false
+    },
+    scrollbar: {
+      enabled: false
+    },
+    rangeSelector: {
+      enabled: true,
+      selected: 1,
+      inputEnabled: false,
+      buttonTheme: {
+        visibility: "hidden"
+      },
+      labelStyle: {
+        visibility: "hidden"
+      },
+      buttons: [
+        {
+          type: "month",
+          count: 1,
+          text: "1m",
+          title: "View 1 month"
+        },
+        {
+          type: "month",
+          count: 6,
+          text: "6m",
+          title: "View 6 months"
+        },
+        {
+          type: "ytd",
+          text: "YTD",
+          title: "View year to date"
+        },
+        {
+          type: "year",
+          count: 1,
+          text: "1y",
+          title: "View 1 year"
+        },
+        {
+          type: "year",
+          count: 5,
+          text: "5y",
+          title: "View 5 years"
+        },
+        {
+          type: "all",
+          text: "Max",
+          title: "View all"
+        }
+      ]
+    },
     legend: {
       itemStyle: {
         color: "#ffffff"
@@ -74,6 +126,7 @@ const Graph = ({ props }: Props) => {
     },
     tooltip: {
       shared: true,
+      split: false,
       backgroundColor: "#ffffff",
       borderColor: "#ffffff",
       borderRadius: 20,
@@ -99,6 +152,7 @@ const Graph = ({ props }: Props) => {
       height: "50%"
     },
     xAxis: {
+      minRange: 1,
       type: "datetime",
       labels: {
         format: "{value:%b %y}",
@@ -112,6 +166,7 @@ const Graph = ({ props }: Props) => {
       }
     },
     yAxis: {
+      opposite: false,
       showFirstLabel: false,
       title: {
         text: null
@@ -139,50 +194,60 @@ const Graph = ({ props }: Props) => {
     ],
     credits: {
       enabled: false
-    },
-    rangeSelector: {
-      allButtonsEnabled: true,
-      buttons: [
-        {
-          type: "month",
-          count: 3,
-          text: "Day",
-          dataGrouping: {
-            forced: true,
-            units: [["day", [1]]]
+    }
+  };
+
+  const chartRef = useRef<HighchartsReact.RefObject>(null);
+
+  let oldExtremes = [];
+
+  const zoom1M = () => {
+    if (chartRef.current && chartRef.current.chart) {
+      if (!(chartRef.current.chart as ExtendedChart).currentZoom) {
+        chartRef.current.chart.update({
+          xAxis: {
+            tickInterval: 28 * 24 * 3600 * 1000
           }
-        },
-        {
-          type: "year",
-          count: 1,
-          text: "Week",
-          dataGrouping: {
-            forced: true,
-            units: [["week", [1]]]
-          }
-        },
-        {
-          type: "all",
-          text: "Month",
-          dataGrouping: {
-            forced: true,
-            units: [["month", [1]]]
-          }
+        });
+        chartRef.current.chart.xAxis[0].setExtremes(
+          1616440134271,
+          new Date(1616441116454).getTime()
+        );
+        (chartRef.current.chart as ExtendedChart).currentZoom = "1m";
+      }
+    }
+  };
+
+  const zoomAll = () => {
+    if (chartRef.current) {
+      chartRef.current.chart.update({
+        xAxis: {
+          minTickInterval: undefined
         }
-      ],
-      buttonTheme: {
-        width: 60
-      },
-      selected: 2
-    },
-    navigator: {
-      enabled: false
+      });
+
+      chartRef.current.chart.xAxis[0].setExtremes(undefined);
+      (chartRef.current.chart as ExtendedChart).currentZoom = "all";
     }
   };
 
   return (
     <section className="relative z-0 w-full rounded-2xl bg-stashaway-blue">
-      <HighchartsReact highcharts={Highcharts} options={options} {...props} />
+      <div className="space-x-2">
+        <button className=" bg-stashaway-white" onClick={zoom1M}>
+          1M
+        </button>
+        <button className="bg-stashaway-white" onClick={zoomAll}>
+          ALL
+        </button>
+      </div>
+      <HighchartsReact
+        ref={chartRef}
+        highcharts={Highcharts}
+        constructorType={"stockChart"}
+        options={options}
+        {...props}
+      />
       <div className="absolute z-10 space-y-3 top-16 left-16">
         <h1 className="text-2xl font-bold font-metropolis text-stashaway-white">
           Portfolio value based on gross returns

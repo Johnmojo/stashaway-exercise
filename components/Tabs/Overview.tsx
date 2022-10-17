@@ -1,4 +1,4 @@
-import { Compare, Result } from "@components/index";
+import { Result } from "@components/index";
 
 const Overview = () => {
   return (
@@ -9,7 +9,6 @@ const Overview = () => {
         </h1>
       </div>
       <div>
-        <Compare />
         <Result />
       </div>
     </div>

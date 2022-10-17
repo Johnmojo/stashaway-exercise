@@ -1,5 +1,5 @@
 import useFetch from "@hooks/useFetch";
-import { Graph, CurrencyRow, TimeRow } from "@components/index";
+import { Compare, Graph, CurrencyRow, TimeRow } from "@components/index";
 const API_KEY = process.env.API_KEY;
 
 // Temp data
@@ -36,8 +36,18 @@ const Result = () => {
     { id: "usd", label: "USD" }
   ];
 
+  // Array for benchmark buttons
+  const benchmarkArray = [
+    { value: "one", label: "One" },
+    { value: "two", label: "Two" },
+    { value: "three", label: "Three" }
+  ];
+
   return (
     <section>
+      <div>
+        <Compare compareInput={benchmarkArray} />
+      </div>
       <div className="flex w-full pb-4 mx-auto pt-14 max-w-screen-2xl place-content-between">
         <div className="space-x-3">
           <TimeRow timeInput={timeArray} />
