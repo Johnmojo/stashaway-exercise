@@ -26,6 +26,3 @@ export { default as Projection } from "./Tabs/Projection";
 // SVGs
 export { default as ArrowLeft } from "./SVG/ArrowLeft";
 export { default as ArrowDropdown } from "./SVG/ArrowDropdown";
-
-// Chart
-export { default as LineChart } from "./Chart/LineChart";

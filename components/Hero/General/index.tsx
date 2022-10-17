@@ -6,7 +6,7 @@ const General = () => {
   return (
     <>
       <section className="bg-stashaway-blue">
-        <div className="w-full pt-4 mx-auto max-w-screen-2xl md:block">
+        <div className="w-full px-8 pt-4 mx-auto max-w-screen-2xl md:block">
           <div className="pb-12 space-y-4">
             <div>
               <Link href="/">

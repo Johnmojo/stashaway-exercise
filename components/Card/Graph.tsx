@@ -1,42 +1,33 @@
-import { LineChart } from "@components/index";
-import { useRef, useState } from "react";
-
-import Highcharts from "highcharts/highstock";
+import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-
-// Mock data
-import IBM from "../../data/ibm.json";
-import VTSMX from "../../data/vtsmx.json";
 
 interface ExtendedChart extends Highcharts.Chart {
   currentZoom: string | undefined;
 }
 interface Props {
   props?: HighchartsReact.Props;
-  passChildData: Object | null;
+  passChildData1: Object | null;
+  passChildData2: Object | null;
 }
 
 const Graph = (props: Props) => {
   let processedDataA: { x: number; y: number }[] = [];
   let processedDataB: { x: number; y: number }[] = [];
-
-  // TODO: Make this component & cleanup
   const dailySwitch: string = "Time Series (Daily)";
 
-  // console.log(props.passChildData);
-
-  // Loop the object data and push it to the array
-  for (const key in props.passChildData[dailySwitch]) {
+  // Loop the object data and push it to the array - StashAway static JSON
+  for (const key in props.passChildData1[dailySwitch]) {
     processedDataA.push({
       x: new Date(key).getTime(),
-      y: parseFloat(props.passChildData[dailySwitch][key]["4. close"])
+      y: parseFloat(props.passChildData1[dailySwitch][key]["4. close"])
     });
   }
 
-  for (const key in props.passChildData[dailySwitch]) {
+  // Loop the object data and push it to the array - API JSON
+  for (const key in props.passChildData2[dailySwitch]) {
     processedDataB.push({
       x: new Date(key).getTime(),
-      y: parseFloat(props.passChildData[dailySwitch][key]["4. close"])
+      y: parseFloat(props.passChildData2[dailySwitch][key]["4. close"])
     });
   }
 
@@ -108,6 +99,7 @@ const Graph = (props: Props) => {
       ]
     },
     legend: {
+      enabled: false,
       itemStyle: {
         color: "#ffffff"
       }
@@ -150,57 +142,13 @@ const Graph = (props: Props) => {
       spacingBottom: 200,
       spacingLeft: 65,
       spacingRight: 60,
-      height: "50%",
-      events: {
-        load() {
-          const chart = this,
-            xAxis = chart.xAxis[0];
-
-          m1.addEventListener("click", function () {
-            const oneMonth = 2629800000,
-              points = chart.series[0].points;
-            console.log(points);
-            xAxis.setExtremes(
-              points[points.length - 1].x - oneMonth,
-              points[points.length - 1].x
-            );
-          });
-
-          m3.addEventListener("click", function () {
-            const threeMonths = 3 * 2629800000,
-              points = chart.series[0].points;
-            xAxis.setExtremes(
-              points[points.length - 1].x - threeMonths,
-              points[points.length - 1].x
-            );
-          });
-
-          m6.addEventListener("click", function () {
-            const sixMonths = 6 * 2629800000,
-              points = chart.series[0].points;
-            xAxis.setExtremes(
-              points[points.length - 1].x - sixMonths,
-              points[points.length - 1].x
-            );
-          });
-
-          all.addEventListener("click", function () {
-            const oneYear: number = 12 * 2629800000,
-              points = chart.series[0].points;
-            xAxis.setExtremes(
-              points[points.length - 1].x - oneYear,
-              points[points.length - 1].x
-            );
-          });
-        }
-      }
+      height: "50%"
     },
     xAxis: {
       minRange: 1,
       type: "datetime",
       labels: {
         format: "{value:%b %y}",
-        // format: "{value:%Y-%b-%e}",
         style: {
           color: "#ffffff"
         }
@@ -210,7 +158,6 @@ const Graph = (props: Props) => {
       }
     },
     yAxis: {
-      opposite: false,
       showFirstLabel: false,
       title: {
         text: null
@@ -243,18 +190,7 @@ const Graph = (props: Props) => {
 
   return (
     <section className="relative z-0 w-full h-auto rounded-2xl bg-stashaway-blue">
-      <div className="space-x-2">
-        <button id="m1">1m</button>
-        <button id="m3">3m</button>
-        <button id="m6">6m</button>
-        <button id="all">All</button>
-      </div>
-      <HighchartsReact
-        highcharts={Highcharts}
-        constructorType={"stockChart"}
-        options={options}
-        {...props}
-      />
+      <HighchartsReact highcharts={Highcharts} options={options} {...props} />
       <div className="absolute z-10 space-y-3 top-16 left-16">
         <h1 className="text-2xl font-bold font-metropolis text-stashaway-white">
           Portfolio value based on gross returns
@@ -264,7 +200,7 @@ const Graph = (props: Props) => {
           2019
         </p>
       </div>
-      <div className="absolute left-0 right-0 z-10 flex items-start justify-center space-x-48 bottom-10">
+      <div className="absolute left-0 right-0 z-10 flex items-start justify-center space-x-48 bottom-14">
         <div className="flex items-start">
           <div className="w-5 mt-2 mr-2 h-[0.20rem] bg-stashaway-lightBlue"></div>
           <div className="text-sm font-metropolis text-stashaway-white">

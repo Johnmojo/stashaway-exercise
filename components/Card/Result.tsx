@@ -1,12 +1,11 @@
 import useFetch from "@hooks/useFetch";
-const API_KEY = process.env.API_KEY;
 import { Compare, Graph, CurrencyRow, TimeRow } from "@components/index";
 import { useState } from "react";
+import vtsmx from "data/vtsmx.json";
 
 const Result = () => {
+  // API creds
   const rangeDayAPI = "TIME_SERIES_DAILY";
-  const rangeWeekAPI = "TIME_SERIES_WEEKLY";
-  const rangeMonthAPI = "TIME_SERIES_MONTHLY";
 
   // Array for time buttons
   const timeArray = [
@@ -26,30 +25,29 @@ const Result = () => {
 
   // Array for benchmark buttons
   const benchmarkArray = [
-    { value: "brka", label: "40% VTSMX (Stock) + 60% VBMFX (Bond)" },
-    { value: "ldsvf", label: "VTSMX - Vanguard Total Stock Market Index" },
-    { value: "ibm", label: "VTBMX - Vanguard Total Bond Market Index" }
+    // IBM
+    { value: "IBM", label: "40% VTSMX (Stock) + 60% VBMFX (Bond)" },
+    // TESCP LONDON
+    { value: "TSCO.LON", label: "VTSMX - Vanguard Total Stock Market Index" },
+    // Trio-Tech International
+    { value: "SHOP.TRT", label: "VTBMX - Vanguard Total Bond Market Index" }
   ];
 
   // Parent state to keep track of all the child states
   const [benchmarkState, setBenchmarkState] = useState<string | undefined>(
-    "mix"
+    benchmarkArray[0].value
   );
-  const [timeState, setTimeState] = useState<string | undefined>("1m");
-  const [currencyState, setCurrencyState] = useState<string | undefined>("sgd");
-
-  const [lolState, setLolState] = useState<string | undefined>("mix");
-
-  // List of endpoints
-  // const endpoint = `https://www.alphavantage.co/query?function=${rangeDayAPI}&symbol=${UserData.symbol}&apikey=${API_KEY}`;
-  const currentEndpoint: string = `http://localhost:4000/brka`;
+  const [timeState, setTimeState] = useState<string | undefined>(
+    timeArray[0].id
+  );
+  const [currencyState, setCurrencyState] = useState<string | undefined>(
+    currencyArray[0].id
+  );
 
   // Import a custom hook to fetch data
-  const { loading, error, data } = useFetch(currentEndpoint);
-
-  // Verify if its working
-  if (loading) return <h1>Loading</h1>;
-  if (error) return <h1>Error</h1>;
+  const { data } = useFetch(
+    `https://www.alphavantage.co/query?function=${rangeDayAPI}&symbol=${benchmarkState}&outputsize=full&apikey=demo`
+  );
 
   return (
     <section>
@@ -71,7 +69,7 @@ const Result = () => {
         </div>
       </div>
       <div>
-        <Graph passChildData={data} />
+        <Graph passChildData1={data} passChildData2={vtsmx} />
       </div>
     </section>
   );
