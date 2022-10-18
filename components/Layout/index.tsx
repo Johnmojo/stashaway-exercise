@@ -3,8 +3,8 @@
  * @date 12 October 2022
  */
 
-import Header from "../Navigation/Header";
-import Footer from "../Navigation/Footer";
+import Header from "./Header";
+import Footer from "./Footer";
 import { ReactNode } from "react";
 
 interface Props {

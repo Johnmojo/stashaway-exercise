@@ -4,17 +4,11 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "next/core-web-vitals",
-    "plugin:testing-library/react",
     "prettier"
   ],
-  "plugins": ["testing-library"],
-  "overrides": [
-    {
-      "files": [
-        "**/__tests__/**/*.[jt]s?(x)",
-        "**/?(*.)+(spec|test).[jt]s?(x)"
-      ],
-      "extends": ["plugin:testing-library/react"]
-    }
-  ]
+  "rules": {
+    "@typescript-eslint/no-this-alias": "error",
+    "@typescript-eslint/ban-types": "error",
+    "quotes": [0, "double"]
+  }
 }

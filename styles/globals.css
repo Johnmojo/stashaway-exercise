@@ -4,12 +4,50 @@
 
 @font-face {
   font-family: "akkurat";
-  src: url("../public/fonts/akkurat.ttf");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../public/fonts/akkurat-regular.ttf");
+}
+
+@font-face {
+  font-family: "akkurat";
+  font-style: bold;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../public/fonts/akkurat-bold.ttf");
 }
 
 @font-face {
   font-family: "metropolis";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
   src: url("../public/fonts/metropolis-regular.ttf");
+}
+
+@font-face {
+  font-family: "metropolis";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../public/fonts/metropolis-medium.ttf");
+}
+
+@font-face {
+  font-family: "metropolis";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../public/fonts/metropolis-semibold.ttf");
+}
+
+@font-face {
+  font-family: "metropolis";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../public/fonts/metropolis-bold.ttf");
 }
 
 html,

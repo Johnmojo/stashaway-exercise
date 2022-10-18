@@ -14,13 +14,14 @@ module.exports = {
     colors: {
       "stashaway-white": "#ffffff",
       "stashaway-blue": "#0e233e",
+      "stashaway-cyan": "#57c5c2",
+      "stashaway-lightBlue": "#3884d8",
       "stashaway-cyan": "#62b4b1",
-      "stashaway-lightBlue": "#4b84d2",
-      "stashaway-cyan": "#62b4b1",
-      "stashaway-yellow": "#928154",
+      "stashaway-yellow": "#efbe55",
       "stashaway-lightGrey": "#f8f8f8",
       "stashaway-mediumGrey": "#edeff1",
-      "stashaway-darkGrey": "#828282"
+      "stashaway-darkGrey": "#828282",
+      "stashaway-blackGrey": "#e2e3e5"
     }
   },
   plugins: []
