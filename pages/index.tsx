@@ -1,19 +1,10 @@
 import type { NextPage } from "next";
-import { General } from "../components";
-
-import Head from "next/head";
+import { HeaderMeta, General } from "@components/index";
 
 const Index: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>StashAway Demo</title>
-        <meta charSet="utf-8" />
-        <meta name="description" content="Lorem Ipsum" />
-        <meta name="author" content="Johnny Chai" />
-        <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+      <HeaderMeta title="StashAway Demo" description="Some Content" />
       <General />
     </>
   );

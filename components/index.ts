@@ -1,6 +1,9 @@
 // Layout
 export { default as Layout } from "./Layout";
 
+// Header meta
+export { default as HeaderMeta } from "./Layout/HeaderMeta";
+
 // Button
 export { default as Pill } from "./Button/Pill";
 

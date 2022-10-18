@@ -1,8 +1,3 @@
-/**
- * Main layout wrapper
- * @date 12 October 2022
- */
-
 import Header from "./Header";
 import Footer from "./Footer";
 import { ReactNode } from "react";
