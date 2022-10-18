@@ -1,18 +1,15 @@
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
-interface ExtendedChart extends Highcharts.Chart {
-  currentZoom: string | undefined;
-}
 interface Props {
   props?: HighchartsReact.Props;
-  passChildData1: Object | null;
-  passChildData2: Object | null;
+  passChildData1: Record<string, unknown>;
+  passChildData2: Record<string, unknown>;
 }
 
 const Graph = (props: Props) => {
-  let processedDataA: { x: number; y: number }[] = [];
-  let processedDataB: { x: number; y: number }[] = [];
+  const processedDataA: { x: number; y: number }[] = [];
+  const processedDataB: { x: number; y: number }[] = [];
   const dailySwitch: string = "Time Series (Daily)";
 
   // Loop the object data and push it to the array - StashAway static JSON
