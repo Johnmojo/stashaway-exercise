@@ -1,5 +1,5 @@
 import useFetch from "@hooks/useFetch";
-import { Compare, Graph, CurrencyRow, TimeRow } from "@components/index";
+import { Compare, Graph } from "@components/index";
 import { useState } from "react";
 import vtsmx from "data/vtsmx.json";
 

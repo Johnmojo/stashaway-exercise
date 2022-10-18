@@ -10,6 +10,8 @@ interface Props {
 }
 
 const Graph = (props: Props) => {
+  const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
+
   // Array for time buttons
   const timeArray = [
     { id: "btn1m", label: "1 month" },
@@ -22,8 +24,8 @@ const Graph = (props: Props) => {
 
   // Array for currency buttons
   const currencyArray = [
-    { id: "sgd", label: "SGD" },
-    { id: "usd", label: "USD" }
+    { id: "btnSGD", label: "SGD" },
+    { id: "btnUSD", label: "USD" }
   ];
 
   // States to keep track of which button is selected
@@ -105,11 +107,9 @@ const Graph = (props: Props) => {
       }
     },
     tooltip: {
-      // formatter: function () {
-      //   return '<div style="margin: 1.25rem 2rem; color: #0e233e; text-align: right;"><div style="margin-bottom:1rem; font-weight: bold; font-size: 0.875rem;">' + {this.x} + '</div><div style="color:#828282; margin-bottom:1rem; font-size: 0.875rem; font-weight: semibold;"><span style="display: inline-block; height: 10px; width: 10px; margin-right: 10px; background-color: {series.color}"></span>{point.series.name}<div style="font-weight:bold; font-size:1.125rem; color:#3884d8">{point.y}</div></div>"</div>';
-      // },
       shared: true,
       split: false,
+      valueDecimals: 2,
       backgroundColor: "#ffffff",
       borderColor: "#ffffff",
       xDateFormat: "%d %b %Y",
@@ -141,6 +141,7 @@ const Graph = (props: Props) => {
           const chart = this,
             xAxis = chart.xAxis[0];
 
+          // Zoom for 1 month
           const btn1m = document.getElementById("btn1m");
           btn1m?.addEventListener("click", function () {
             const oneMonth = 2629800000,
@@ -151,6 +152,7 @@ const Graph = (props: Props) => {
             );
           });
 
+          // Zoom for 6 months
           const btn6m = document.getElementById("btn6m");
           btn6m?.addEventListener("click", function () {
             const sixMonths = 6 * 2629800000,
@@ -161,6 +163,7 @@ const Graph = (props: Props) => {
             );
           });
 
+          // Zoom for year-to-date
           const btnYtd = document.getElementById("btnYtd");
           btnYtd?.addEventListener("click", function () {
             const threeMonths = 3 * 2629800000,
@@ -171,6 +174,7 @@ const Graph = (props: Props) => {
             );
           });
 
+          // Zoom for 1 year
           const btn1yr = document.getElementById("btn1yr");
           btn1yr?.addEventListener("click", function () {
             const oneYear = 12 * 2629800000,
@@ -181,6 +185,7 @@ const Graph = (props: Props) => {
             );
           });
 
+          // Zoom for 5 years
           const btn5yr = document.getElementById("btn5yr");
           btn5yr?.addEventListener("click", function () {
             const fiveYears = 12 * 5 * 2629800000,
@@ -191,6 +196,7 @@ const Graph = (props: Props) => {
             );
           });
 
+          // Zoom for max
           const btnMax = document.getElementById("btnMax");
           btnMax?.addEventListener("click", function () {
             const oneYear = 12 * 20 * 2629800000,
@@ -266,6 +272,7 @@ const Graph = (props: Props) => {
           highcharts={Highcharts}
           options={options}
           constructorType={"stockChart"}
+          ref={chartComponentRef}
           {...props}
         />
         <div className="absolute z-10 space-y-3 top-16 left-16">

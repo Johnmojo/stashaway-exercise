@@ -5,5 +5,9 @@
     "plugin:@typescript-eslint/recommended",
     "next/core-web-vitals",
     "prettier"
-  ]
+  ],
+  "rules": {
+    "@typescript-eslint/no-this-alias": "error",
+    "quotes": [0, "double"]
+  }
 }
