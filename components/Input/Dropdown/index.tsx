@@ -1,35 +1,38 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ArrowDropdown } from "@components/index";
 
 interface Props {
   options: Array<{ label: string; value: string }>;
   id: string;
-  selectValue: string;
+  passChildState: (value: string) => void;
 }
 
-const Dropdown = ({ options, id, selectValue }: Props) => {
+const Dropdown = (props: Props) => {
   const [toggle, setToggle] = useState(false);
-  const [option, setOption] = useState(options[0].label);
-  const [focus, setFocus] = useState(options[0].value);
-  const ref = useRef();
+  const [option, setOption] = useState(props.options[0].label);
+  const [focus, setFocus] = useState(props.options[0].value);
+  const dropdownRef = useRef<HTMLInputElement>(null);
 
-  const handleClickOutside = (e) => {
-    if (!ref.current.contains(e.target)) {
+  const handleClickOutside = (e: MouseEvent) => {
+    if (!dropdownRef.current?.contains(e.target as Node)) {
       setToggle(false);
     }
   };
 
-  const handleClickInner = (e) => {
-    const label = e.target.getAttribute("data-label");
-    const value = e.target.getAttribute("data-value");
-    setOption(label);
-    setFocus(value);
-    // selectValue({
-    //   name: id,
-    //   value
-    // });
+  const handleClickInner = (e: MouseEvent | any) => {
+    const label = (e.target as HTMLTextAreaElement).getAttribute("data-label");
+    const value = (e.target as HTMLTextAreaElement).getAttribute("data-value");
+    setOption(label as string);
+    setFocus(value as string);
+
+    // Prevent page jump
+    e.preventDefault();
+
+    // Pass back the value to parent component
+    props.passChildState(value?.toString() as string);
   };
 
+  // Check if clicked on outside of element
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -41,10 +44,8 @@ const Dropdown = ({ options, id, selectValue }: Props) => {
         toggle &&
         "before:-translate-x-1/3 before:-translate-y-1/2 rounded-b-none"
       }`}
-      id={id}
-      name={id}
-      ref={ref}
-      value={option.toLowerCase()}
+      id={props.id}
+      ref={dropdownRef}
       onClick={() => setToggle(!toggle)}
     >
       <span className="flex items-center px-6 py-4 overflow-hidden text-ellipsis whitespace-nowrap place-content-between">
@@ -61,7 +62,7 @@ const Dropdown = ({ options, id, selectValue }: Props) => {
         }`}
       >
         <div className="m-4">
-          {options.map((option, id) => (
+          {props.options.map((option, id) => (
             <li
               className={`px-4 py-4 text-left select-none cursor-pointer text-stashaway-blue hover:bg-stashaway-mediumGrey ${
                 option.value === focus &&

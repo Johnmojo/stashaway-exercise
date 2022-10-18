@@ -1,20 +1,11 @@
-import { useState } from "react";
 import { Dropdown } from "@components/index";
 
-const Compare = () => {
-  const [listing, setListing] = useState({
-    foreignBenchmark: ""
-  });
+interface Props {
+  compareInput: { value: string; label: string }[];
+  passChildState: (data: string) => void;
+}
 
-  const { foreignBenchmark } = listing;
-
-  // Feed the Dropdown
-  const benchmarkArray = [
-    { value: "one", label: "One" },
-    { value: "two", label: "Two" },
-    { value: "three", label: "Three" }
-  ];
-
+const Compare = (props: Props) => {
   return (
     <div className="relative z-10 flex">
       <div className="w-[60%] p-12 bg-stashaway-lightGrey rounded-tl-md rounded-bl-md">
@@ -30,8 +21,8 @@ const Compare = () => {
       <div className="w-[40%] p-12 bg-stashaway-mediumGrey rounded-tr-md rounded-br-md">
         <Dropdown
           id="foreignBenchmark"
-          options={benchmarkArray}
-          selectValue={foreignBenchmark}
+          options={props.compareInput}
+          passChildState={props.passChildState}
         />
       </div>
       <div className="absolute top-0 bottom-0 left-[20%] right-0 flex items-center justify-center w-4 h-4 p-6 m-auto text-sm font-semibold rounded-full bg-stashaway-lightBlue font-metropolis text-stashaway-white">

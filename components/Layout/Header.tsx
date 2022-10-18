@@ -6,7 +6,7 @@ import { ArrowDropdown } from "@components/index";
 const Header: NextPage = () => {
   return (
     <header className="bg-stashaway-blue">
-      <div className="z-50 w-full pt-8 pb-8 mx-auto max-w-screen-2xl md:block">
+      <div className="z-50 w-full px-8 pt-8 pb-8 mx-auto max-w-screen-2xl md:block">
         <div className="flex items-center place-content-between">
           <div className="cursor-pointer">
             <Link href="/">

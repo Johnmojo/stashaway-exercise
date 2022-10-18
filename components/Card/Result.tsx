@@ -1,50 +1,42 @@
 import useFetch from "@hooks/useFetch";
-import { Graph, CurrencyRow, TimeRow } from "@components/index";
-const API_KEY = process.env.API_KEY;
-
-// Temp data
-import { UserData } from "../../data/UserData";
+import { Compare, Graph } from "@components/index";
+import { useState } from "react";
+import vtsmx from "data/vtsmx.json";
 
 const Result = () => {
+  // API creds
   const rangeDayAPI = "TIME_SERIES_DAILY";
-  const rangeWeekAPI = "TIME_SERIES_WEEKLY";
-  const rangeMonthAPI = "TIME_SERIES_MONTHLY";
+
+  // Array for benchmark buttons | 3 toggleable data
+  const benchmarkArray = [
+    // IBM
+    { value: "IBM", label: "40% VTSMX (Stock) + 60% VBMFX (Bond)" },
+    // TESCP LONDON
+    { value: "TSCO.LON", label: "VTSMX - Vanguard Total Stock Market Index" },
+    // Trio-Tech International
+    { value: "SHOP.TRT", label: "VTBMX - Vanguard Total Bond Market Index" }
+  ];
+
+  // Parent state to keep track of all the child states
+  const [benchmarkState, setBenchmarkState] = useState<string | undefined>(
+    benchmarkArray[0].value
+  );
 
   // Import a custom hook to fetch data
-  const { loading, error, data } = useFetch("http://localhost:4000/");
-
-  // Verify if its working
-  if (loading) return <h1>Loading</h1>;
-  if (error) return <h1>Error</h1>;
-
-  // Array for time buttons
-  const timeArray = [
-    { id: "1m", label: "1 month" },
-    { id: "6m", label: "6 month" },
-    { id: "ytd", label: "Year-to-date" },
-    { id: "1y", label: "1 year" },
-    { id: "5y", label: "5 years" },
-    { id: "max", label: "Max" }
-  ];
-
-  // Array for currency buttons
-  const currencyArray = [
-    { id: "sgd", label: "SGD" },
-    { id: "usd", label: "USD" }
-  ];
+  const { data } = useFetch(
+    `https://www.alphavantage.co/query?function=${rangeDayAPI}&symbol=${benchmarkState}&outputsize=full&apikey=demo`
+  );
 
   return (
     <section>
-      <div className="flex w-full pb-4 mx-auto pt-14 max-w-screen-2xl place-content-between">
-        <div className="space-x-3">
-          <TimeRow timeInput={timeArray} />
-        </div>
-        <div className="space-x-3">
-          <CurrencyRow currencyInput={currencyArray} />
-        </div>
+      <div>
+        <Compare
+          compareInput={benchmarkArray}
+          passChildState={setBenchmarkState}
+        />
       </div>
       <div>
-        <Graph />
+        <Graph passChildData1={data} passChildData2={vtsmx} />
       </div>
     </section>
   );
