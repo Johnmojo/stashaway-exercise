@@ -3,14 +3,14 @@ import HighchartsReact from "highcharts-react-official";
 
 interface Props {
   props?: HighchartsReact.Props;
-  passChildData1: Record<string, unknown>;
-  passChildData2: Record<string, unknown>;
+  passChildData1: any;
+  passChildData2: any;
 }
 
 const Graph = (props: Props) => {
   const processedDataA: { x: number; y: number }[] = [];
   const processedDataB: { x: number; y: number }[] = [];
-  const dailySwitch: string = "Time Series (Daily)";
+  const dailySwitch = "Time Series (Daily)";
 
   // Loop the object data and push it to the array - StashAway static JSON
   for (const key in props.passChildData1[dailySwitch]) {

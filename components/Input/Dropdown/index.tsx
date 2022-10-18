@@ -1,10 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ArrowDropdown } from "@components/index";
 
 interface Props {
   options: Array<{ label: string; value: string }>;
   id: string;
-  passChildState: (data: string) => void;
+  passChildState: (value: string) => void;
 }
 
 const Dropdown = (props: Props) => {
@@ -13,15 +13,15 @@ const Dropdown = (props: Props) => {
   const [focus, setFocus] = useState(props.options[0].value);
   const dropdownRef = useRef<HTMLInputElement>(null);
 
-  const handleClickOutside = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!dropdownRef.current.contains(e.target)) {
+  const handleClickOutside = (e: MouseEvent) => {
+    if (!dropdownRef.current?.contains(e.target as Node)) {
       setToggle(false);
     }
   };
 
-  const handleClickInner = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const label = e.target.getAttribute("data-label");
-    const value = e.target.getAttribute("data-value");
+  const handleClickInner = (e: MouseEvent | any) => {
+    const label = (e.target as HTMLTextAreaElement).getAttribute("data-label");
+    const value = (e.target as HTMLTextAreaElement).getAttribute("data-value");
     setOption(label as string);
     setFocus(value as string);
 
@@ -29,7 +29,7 @@ const Dropdown = (props: Props) => {
     e.preventDefault();
 
     // Pass back the value to parent component
-    props.passChildState(value);
+    props.passChildState(value?.toString() as string);
   };
 
   useEffect(() => {
@@ -44,9 +44,7 @@ const Dropdown = (props: Props) => {
         "before:-translate-x-1/3 before:-translate-y-1/2 rounded-b-none"
       }`}
       id={props.id}
-      name={props.id}
       ref={dropdownRef}
-      value={option.toLowerCase()}
       onClick={() => setToggle(!toggle)}
     >
       <span className="flex items-center px-6 py-4 overflow-hidden text-ellipsis whitespace-nowrap place-content-between">
