@@ -15,7 +15,7 @@
 - `public/*` - Static assets of favicon and images.
 - `styles/*` - Global CSS styling with CSS.
 
-![Outline](https://github.com/Johnmojo/stashaway/blob/main/.github/images/demo.png)
+![Outline](https://github.com/Johnmojo/stashaway/raw/highcharts/.github/demo.png)
 
 # Quick start
 
