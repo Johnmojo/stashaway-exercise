@@ -8,6 +8,7 @@
   ],
   "rules": {
     "@typescript-eslint/no-this-alias": "error",
+    "@typescript-eslint/ban-types": "error",
     "quotes": [0, "double"]
   }
 }

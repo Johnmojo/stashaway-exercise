@@ -7,7 +7,7 @@ const Result = () => {
   // API creds
   const rangeDayAPI = "TIME_SERIES_DAILY";
 
-  // Array for benchmark buttons
+  // Array for benchmark buttons | 3 toggleable data
   const benchmarkArray = [
     // IBM
     { value: "IBM", label: "40% VTSMX (Stock) + 60% VBMFX (Bond)" },

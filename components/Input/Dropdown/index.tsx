@@ -32,6 +32,7 @@ const Dropdown = (props: Props) => {
     props.passChildState(value?.toString() as string);
   };
 
+  // Check if clicked on outside of element
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);

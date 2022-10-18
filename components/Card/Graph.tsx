@@ -36,6 +36,7 @@ const Graph = (props: Props) => {
     currencyArray[0].id
   );
 
+  // Array for data
   const processedDataA: { x: number; y: number }[] = [];
   const processedDataB: { x: number; y: number }[] = [];
   const dailySwitch = "Time Series (Daily)";
@@ -137,75 +138,77 @@ const Graph = (props: Props) => {
       spacingRight: 60,
       height: "50%",
       events: {
-        load() {
+        load: function () {
           const chart = this,
             xAxis = chart.xAxis[0];
 
-          // Zoom for 1 month
-          const btn1m = document.getElementById("btn1m");
-          btn1m?.addEventListener("click", function () {
-            const oneMonth = 2629800000,
-              points = chart.series[0].points;
-            xAxis.setExtremes(
-              points[points.length - 1].x - oneMonth,
-              points[points.length - 1].x
-            );
-          });
+          setTimeout(function () {
+            // Zoom for 1 month
+            const btn1m = document.getElementById("btn1m");
+            btn1m?.addEventListener("click", function () {
+              const oneMonth = 2629800000,
+                points = chart.series[0].points;
+              xAxis.setExtremes(
+                points[points.length - 1].x - oneMonth,
+                points[points.length - 1].x
+              );
+            });
 
-          // Zoom for 6 months
-          const btn6m = document.getElementById("btn6m");
-          btn6m?.addEventListener("click", function () {
-            const sixMonths = 6 * 2629800000,
-              points = chart.series[0].points;
-            xAxis.setExtremes(
-              points[points.length - 1].x - sixMonths,
-              points[points.length - 1].x
-            );
-          });
+            // Zoom for 6 months
+            const btn6m = document.getElementById("btn6m");
+            btn6m?.addEventListener("click", function () {
+              const sixMonths = 6 * 2629800000,
+                points = chart.series[0].points;
+              xAxis.setExtremes(
+                points[points.length - 1].x - sixMonths,
+                points[points.length - 1].x
+              );
+            });
 
-          // Zoom for year-to-date
-          const btnYtd = document.getElementById("btnYtd");
-          btnYtd?.addEventListener("click", function () {
-            const threeMonths = 3 * 2629800000,
-              points = chart.series[0].points;
-            xAxis.setExtremes(
-              points[points.length - 1].x - threeMonths,
-              points[points.length - 1].x
-            );
-          });
+            // Zoom for year-to-date
+            const btnYtd = document.getElementById("btnYtd");
+            btnYtd?.addEventListener("click", function () {
+              const threeMonths = 3 * 2629800000,
+                points = chart.series[0].points;
+              xAxis.setExtremes(
+                points[points.length - 1].x - threeMonths,
+                points[points.length - 1].x
+              );
+            });
 
-          // Zoom for 1 year
-          const btn1yr = document.getElementById("btn1yr");
-          btn1yr?.addEventListener("click", function () {
-            const oneYear = 12 * 2629800000,
-              points = chart.series[0].points;
-            xAxis.setExtremes(
-              points[points.length - 1].x - oneYear,
-              points[points.length - 1].x
-            );
-          });
+            // Zoom for 1 year
+            const btn1yr = document.getElementById("btn1yr");
+            btn1yr?.addEventListener("click", function () {
+              const oneYear = 12 * 2629800000,
+                points = chart.series[0].points;
+              xAxis.setExtremes(
+                points[points.length - 1].x - oneYear,
+                points[points.length - 1].x
+              );
+            });
 
-          // Zoom for 5 years
-          const btn5yr = document.getElementById("btn5yr");
-          btn5yr?.addEventListener("click", function () {
-            const fiveYears = 12 * 5 * 2629800000,
-              points = chart.series[0].points;
-            xAxis.setExtremes(
-              points[points.length - 1].x - fiveYears,
-              points[points.length - 1].x
-            );
-          });
+            // Zoom for 5 years
+            const btn5yr = document.getElementById("btn5yr");
+            btn5yr?.addEventListener("click", function () {
+              const fiveYears = 12 * 5 * 2629800000,
+                points = chart.series[0].points;
+              xAxis.setExtremes(
+                points[points.length - 1].x - fiveYears,
+                points[points.length - 1].x
+              );
+            });
 
-          // Zoom for max
-          const btnMax = document.getElementById("btnMax");
-          btnMax?.addEventListener("click", function () {
-            const oneYear = 12 * 20 * 2629800000,
-              points = chart.series[0].points;
-            xAxis.setExtremes(
-              points[points.length - 1].x - oneYear,
-              points[points.length - 1].x
-            );
-          });
+            // Zoom for max
+            const btnMax = document.getElementById("btnMax");
+            btnMax?.addEventListener("click", function () {
+              const oneYear = 12 * 20 * 2629800000,
+                points = chart.series[0].points;
+              xAxis.setExtremes(
+                points[points.length - 1].x - oneYear,
+                points[points.length - 1].x
+              );
+            });
+          }, 5000);
         }
       }
     },
